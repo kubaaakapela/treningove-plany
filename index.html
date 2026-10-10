@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101a16">
+<title>Ranní výzva — Síla každý den</title>
+<style>
+:root{--bg:#0b100e;--panel:#131c18;--panel2:#19251f;--line:#2a3a31;--text:#edf5ef;--muted:#a1b2a7;--green:#8cf0a8;--green2:#36c96b;--orange:#ffcf7a;--red:#ff8e8e}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top right,#1b3b2a 0,transparent 35%),var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+button{font:inherit;cursor:pointer;border:0;border-radius:12px;padding:11px 15px;font-weight:750;transition:.15s}button:hover{transform:translateY(-1px)}button:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+.primary{background:var(--green);color:#0c1a10}.secondary{background:#26372d;color:var(--text);border:1px solid var(--line)}.small{padding:7px 10px;font-size:.9rem}
+.wrap{max-width:1120px;margin:auto;padding:24px 18px 60px}.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:25px}.brand{display:flex;gap:12px;align-items:center}.logo{display:grid;place-items:center;width:48px;height:48px;border-radius:15px;background:var(--green);color:#0b1b10;font-size:25px}.eyebrow{color:var(--green);font-size:.76rem;font-weight:850;letter-spacing:.13em;text-transform:uppercase}.brand h1{font-size:1.35rem;margin:0}.top-actions{display:flex;gap:8px;flex-wrap:wrap}
+.hero{display:grid;grid-template-columns:1.3fr .7fr;gap:18px;margin-bottom:18px}.hero-main,.panel,.stat{background:linear-gradient(145deg,var(--panel),#101713);border:1px solid var(--line);border-radius:22px}.hero-main{padding:28px;position:relative;overflow:hidden}.hero-main:after{content:"⚡";position:absolute;right:24px;top:20px;font-size:100px;opacity:.06}.hero h2{font-size:clamp(1.9rem,4vw,3.1rem);line-height:1.05;max-width:580px;margin:10px 0 14px;letter-spacing:-.04em}.hero p{color:var(--muted);max-width:560px;margin:0 0 22px}.hero-buttons{display:flex;gap:10px;flex-wrap:wrap}.hero-side{display:grid;gap:12px}.stat{padding:19px}.stat-label{color:var(--muted);font-size:.9rem}.stat-value{font-size:2rem;font-weight:900;line-height:1.2;margin:6px 0}.green{color:var(--green)}.progress{height:9px;border-radius:99px;background:#26372d;overflow:hidden;margin-top:12px}.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green2),var(--green));border-radius:99px;transition:width .3s}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.panel{padding:22px;min-width:0}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}.panel h3{font-size:1.15rem;margin:0}.sub{color:var(--muted);font-size:.9rem}.calendar-head{display:flex;align-items:center;gap:9px}.calendar-head strong{min-width:130px;text-align:center}.calendar{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}.weekday{text-align:center;color:var(--muted);font-size:.75rem;padding:5px 0}.day{aspect-ratio:1/1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border-radius:10px;background:#19231e;border:1px solid transparent;position:relative;color:var(--text);padding:0;font-size:.88rem}.day.empty{background:transparent}.day.today{border-color:var(--orange)}.day.done{background:#1d4a2d;color:#c9ffd5}.day.done:after{content:"✓";font-size:.62rem;color:var(--green)}.day.selected{box-shadow:0 0 0 2px var(--green)}.day.future{opacity:.35}.legend{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:.8rem;margin-top:14px}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;background:#1d4a2d}.dot.today-dot{background:var(--orange)}
+.workout-summary{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}.chip{padding:6px 10px;background:#203127;border:1px solid var(--line);border-radius:99px;color:var(--muted);font-size:.84rem}.exercise-list{display:grid;gap:9px}.exercise{display:flex;gap:12px;align-items:flex-start;padding:13px;background:var(--panel2);border:1px solid var(--line);border-radius:14px}.exercise input{width:20px;height:20px;accent-color:var(--green2);margin-top:3px;flex-shrink:0}.exercise strong{display:block}.exercise small{display:block;color:var(--muted);margin-top:2px}.exercise.done-ex{opacity:.65}.exercise.done-ex strong{text-decoration:line-through}.exercise .reps{margin-left:auto;color:var(--green);font-size:.83rem;font-weight:800;white-space:nowrap}.workout-footer{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:15px;flex-wrap:wrap}.notice{color:var(--muted);font-size:.85rem;margin-top:12px}.milestones{display:grid;gap:10px}.milestone{display:flex;gap:12px;align-items:center;background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:13px}.medal{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:#26382c;font-size:21px}.milestone strong{display:block}.milestone small{color:var(--muted)}.milestone.locked{opacity:.52}.milestone .tag{margin-left:auto;color:var(--green);font-size:.78rem;font-weight:800}.history{display:grid;gap:8px}.history-row{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}.history-row:last-child{border:0}.history-row span:last-child{color:var(--green);font-weight:800}.footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:22px}.toast{position:fixed;bottom:18px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--green);color:#092012;padding:12px 18px;border-radius:14px;font-weight:800;box-shadow:0 10px 35px #0007;transition:.2s;z-index:10}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:780px){.hero{grid-template-columns:1fr}.hero-side{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}.hero-main{padding:22px}.top{align-items:flex-start}.top-actions{justify-content:flex-end}.wrap{padding:16px 12px 40px}.panel{padding:17px}}
+@media(max-width:420px){.brand h1{font-size:1.1rem}.logo{width:42px;height:42px}.top{flex-direction:column}.top-actions{width:100%}.top-actions button{flex:1}.hero-side{grid-template-columns:1fr 1fr}.stat{padding:14px}.stat-value{font-size:1.65rem}.day{font-size:.8rem;gap:0}.calendar{gap:4px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div class="brand"><div class="logo">⚡</div><div><div class="eyebrow">Tvoje osobní výzva</div><h1>Ranní rutina</h1></div></div>
+  <div class="top-actions"><button class="secondary small" id="exportBtn">Export postupu</button><button class="secondary small" id="resetBtn">Resetovat data</button></div>
+</header>
+<section class="hero">
+  <div class="hero-main">
+    <div class="eyebrow" id="todayLabel">DNEŠNÍ VÝZVA</div>
+    <h2>Každé ráno o kousek <span class="green">silnější.</span></h2>
+    <p>30 minut pro kondici, sílu a svaly. Dokonči dnešní trénink, sbírej body a odemykej další úrovně. Obtížnost se bude postupně zvyšovat.</p>
+    <div class="hero-buttons"><button class="primary" id="startBtn">Přejít na dnešní trénink ↓</button><button class="secondary" id="calendarBtn">Otevřít kalendář</button></div>
+  </div>
+  <div class="hero-side">
+    <div class="stat"><div class="stat-label">Celkem bodů</div><div class="stat-value green" id="points">0 XP</div><div class="sub" id="levelName">Úroveň 1 · Začátečník</div><div class="progress"><span id="levelProgress"></span></div><div class="sub" id="nextLevel" style="margin-top:7px">0 / 100 XP do další úrovně</div></div>
+    <div class="stat"><div class="stat-label">Aktuální série</div><div class="stat-value" id="streak">0 🔥</div><div class="sub">dní za sebou s tréninkem</div><div style="height:10px"></div><div class="stat-label">Dokončené tréninky</div><div class="stat-value" id="workouts">0</div></div>
+  </div>
+</section>
+<div class="grid">
+  <section class="panel" id="calendarPanel">
+    <div class="panel-head"><div><h3>📅 Tvůj kalendář</h3><div class="sub">Každý zelený den je splněný trénink.</div></div><div class="calendar-head"><button class="secondary small" id="prevMonth" aria-label="Předchozí měsíc">‹</button><strong id="monthName"></strong><button class="secondary small" id="nextMonth" aria-label="Další měsíc">›</button></div></div>
+    <div class="calendar" id="calendar"></div>
+    <div class="legend"><span><i class="dot"></i>Splněno</span><span><i class="dot today-dot"></i>Dnes</span></div>
+    <p class="notice" id="calendarTip">Vyber den a zobraz si jeho plán.</p>
+  </section>
+  <section class="panel" id="workoutPanel">
+    <div class="panel-head"><div><h3>🏋️ Dnešní trénink</h3><div class="sub" id="planSubtitle">30 minut · celé tělo</div></div><span class="chip" id="difficulty">Úroveň 1</span></div>
+    <div class="workout-summary"><span class="chip">🔥 Rozcvička · 4 min</span><span class="chip">🏃 Běh · 8 min</span><span class="chip">💪 Síla · 12 min</span><span class="chip">🧘 Protažení · 6 min</span></div>
+    <div class="exercise-list" id="exerciseList"></div>
+    <div class="workout-footer"><span class="sub" id="checkedCount">0 z 8 úkolů</span><button class="primary" id="completeBtn">Dokončit trénink · +50 XP</button></div>
+    <div class="notice" id="workoutNotice">Zaškrtni jednotlivé části. Body získáš za celý trénink.</div>
+  </section>
+  <section class="panel">
+    <div class="panel-head"><div><h3>🏆 Odměny a úrovně</h3><div class="sub">Další cíl je vždy o krok dál.</div></div></div>
+    <div class="milestones" id="milestones"></div>
+  </section>
+  <section class="panel">
+    <div class="panel-head"><div><h3>📈 Poslední výsledky</h3><div class="sub">Tvoje nedávné dokončené dny.</div></div></div>
+    <div class="history" id="history"></div>
+  </section>
+</div>
+<div class="footer">Tvoje data zůstávají v tomto prohlížeči. Trénuj bezpečně a zvyšuj obtížnost postupně.</div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(() => {
+const KEY='ranniRutinaV1';
+const $=id=>document.getElementById(id);
+const todayKey=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
+const parseDate=s=>{const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)};
+const dateKey=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+const formatDate=s=>parseDate(s).toLocaleDateString('cs-CZ',{day:'numeric',month:'long',year:'numeric'});
+const defaults=()=>({xp:0,completed:{},checks:{},selected:todayKey(),startDate:todayKey()});
+let state;
+try{state=JSON.parse(localStorage.getItem(KEY))||defaults()}catch(e){state=defaults()}
+state.xp=Number(state.xp)||0;state.completed=state.completed||{};state.checks=state.checks||{};state.startDate=state.startDate||todayKey();state.selected=todayKey();
+let viewDate=new Date();
+let toastTimer;
+const save=()=>localStorage.setItem(KEY,JSON.stringify(state));
+function toast(msg){$('toast').textContent=msg;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('show'),2400)}
+function levelInfo(){const n=Math.floor(state.xp/100)+1;const names=['Začátečník','Rozcvičený','Budovatel síly','Vytrvalec','Ranní legenda','Nezastavitelný'];return {n,name:names[Math.min(n-1,names.length-1)],into:state.xp%100,remaining:100-state.xp%100}}
+function dayNumber(key){const start=parseDate(state.startDate||todayKey());const date=parseDate(key);return Math.max(1,Math.floor((date-start)/86400000)+1)}
+function planFor(key){
+ const n=dayNumber(key),completedDays=Object.keys(state.completed).length,level=Math.min(10,Math.floor(completedDays/3));
+ const squat=12+Math.min(level,8)*2,push=6+Math.min(level,6),lunge=8+Math.min(level,6),plank=30+Math.min(level,8)*5;
+ let exercises=[
+  ['warm','Rozcvička','Chůze na místě, kroužení rameny a lehké zvedání kolen.','4 min'],
+  ['run','Běh a chůze','2 min svižná chůze, 5 min lehký běh, 1 min pomalá chůze.','8 min'],
+  ['squat','Dřepy',`Kontrolovaný pohyb, kolena směřují ve směru špiček.`,` ${squat} opak.`],
+  ['push','Kliky',`Klasické kliky nebo lehčí varianta o pevnou vyvýšenou plochu.`,` ${push} opak.`],
+  ['lunge','Výpady',`Střídej nohy a drž rovnováhu.`,` ${lunge} / noha`],
+  ['plank','Plank',`Zpevni břicho a neprohýbej bedra.`,` ${plank} s`],
+  ['stretch','Protažení','Lýtka, stehna, kyčle, hrudník a ramena; jemně bez bolesti.','6 min'],
+  ['water','Voda a zklidnění','Napij se a několik chvil klidně dýchej.','2 min']
+ ];
+ if(level>=2){exercises[2][2]='Pokud je to pohodlné, zpomal cestu dolů na 3 sekundy.';exercises[3][2]='Zkus o něco nižší oporu nebo pomalé spouštění.'}
+ if(level>=4){exercises[5][2]='Drž plank kvalitně; můžeš čas rozdělit na dvě části.'}
+ return {level,exercises,day:n};
+}
+function renderStats(){
+ const info=levelInfo(),days=Object.keys(state.completed).length;
+ $('points').textContent=state.xp+' XP';$('levelName').textContent=`Úroveň ${info.n} · ${info.name}`;
+ $('levelProgress').style.width=info.into+'%';$('nextLevel').textContent=`${info.into} / 100 XP do další úrovně`;
+ $('workouts').textContent=days;$('streak').textContent=streakCount()+' 🔥';
+ $('todayLabel').textContent=new Date().toLocaleDateString('cs-CZ',{weekday:'long',day:'numeric',month:'long'}).toUpperCase();
+}
+function streakCount(){let count=0,d=parseDate(todayKey());if(!state.completed[dateKey(d)])d.setDate(d.getDate()-1);while(state.completed[dateKey(d)]){count++;d.setDate(d.getDate()-1)}return count}
+function renderCalendar(){
+ const year=viewDate.getFullYear(),month=viewDate.getMonth();
+ $('monthName').textContent=viewDate.toLocaleDateString('cs-CZ',{month:'long',year:'numeric'});
+ const host=$('calendar');host.innerHTML='';
+ ['Po','Út','St','Čt','Pá','So','Ne'].forEach(x=>{const el=document.createElement('div');el.className='weekday';el.textContent=x;host.append(el)});
+ const first=new Date(year,month,1),offset=(first.getDay()+6)%7,days=new Date(year,month+1,0).getDate();
+ for(let i=0;i<offset;i++){const e=document.createElement('div');e.className='day empty';host.append(e)}
+ for(let d=1;d<=days;d++){
+  const date=new Date(year,month,d),key=dateKey(date),b=document.createElement('button');b.className='day';b.textContent=d;
+  if(key===todayKey())b.classList.add('today');if(state.completed[key])b.classList.add('done');if(key===state.selected)b.classList.add('selected');if(key>todayKey())b.classList.add('future');
+  b.title=state.completed[key]?'Trénink splněn':key===todayKey()?'Dnes':'Zobrazit plán pro '+formatDate(key);
+  b.addEventListener('click',()=>{state.selected=key;renderCalendar();renderWorkout();});host.append(b);
+ }
+ $('calendarTip').textContent=state.completed[state.selected]?`✓ ${formatDate(state.selected)} — trénink splněn.`:state.selected===todayKey()?'Vybraný den je dnes. Dokonči trénink a získej XP.':`Vybraný den: ${formatDate(state.selected)}. Trénink lze označit jako splněný jen pro dnešek.`;
+}
+function renderWorkout(){
+ const key=state.selected,plan=planFor(key),isToday=key===todayKey(),done=!!state.completed[key];
+ $('planSubtitle').textContent=`30 minut · celé tělo · ${formatDate(key)}`;
+ $('difficulty').textContent='Náročnost '+(plan.level+1)+'/11';
+ const list=$('exerciseList');list.innerHTML='';
+ plan.exercises.forEach(([id,title,desc,reps])=>{
+  const row=document.createElement('label');row.className='exercise';const input=document.createElement('input');input.type='checkbox';input.checked=!!(state.checks[key]&&state.checks[key][id]);input.disabled=!isToday||done;
+  input.addEventListener('change',()=>{state.checks[key]=state.checks[key]||{};state.checks[key][id]=input.checked;save();renderWorkout()});
+  if(input.checked)row.classList.add('done-ex');
+  const content=document.createElement('span');content.style.flex='1';const strong=document.createElement('strong');strong.textContent=title;const small=document.createElement('small');small.textContent=desc;content.append(strong,small);
+  const tag=document.createElement('span');tag.className='reps';tag.textContent=reps.trim();row.append(input,content,tag);list.append(row);
+ });
+ const count=Object.values(state.checks[key]||{}).filter(Boolean).length;
+ $('checkedCount').textContent=`${count} z ${plan.exercises.length} úkolů`;
+ const btn=$('completeBtn');btn.disabled=done||!isToday;btn.style.opacity=done||!isToday?'.55':'1';btn.textContent=done?'Trénink dokončen ✓':!isToday?'Dokončit lze jen dnešek':'Dokončit trénink · +50 XP';
+ $('workoutNotice').textContent=done?'Skvělá práce! Dnešní body už byly připsány.':!isToday?'Starší nebo budoucí den je jen pro náhled.':'Zaškrtni části tréninku a po dokončení si připiš 50 XP.';
+}
+function renderMilestones(){
+ const levels=[['🌱','První krok','Dokonči svůj první trénink',1],['🔥','Týdenní bojovník','Dokonči 7 tréninků',7],['💪','Budovatel síly','Nasbírej 500 XP',500,'xp'],['🏆','Měsíční legenda','Dokonči 30 tréninků',30],['⚡','Nezastavitelný','Dosáhni úrovně 5',5,'level']];
+ const host=$('milestones');host.innerHTML='';
+ levels.forEach(([emoji,title,desc,target,type])=>{let ok=type==='xp'?state.xp>=target:type==='level'?levelInfo().n>=target:type==='level'?false:Object.keys(state.completed).length>=target;
+ const el=document.createElement('div');el.className='milestone'+(ok?'':' locked');const med=document.createElement('div');med.className='medal';med.textContent=emoji;const txt=document.createElement('div');txt.style.flex='1';const strong=document.createElement('strong');strong.textContent=title;const small=document.createElement('small');small.textContent=desc;txt.append(strong,small);const tag=document.createElement('span');tag.className='tag';tag.textContent=ok?'Získáno ✓':'Zamčeno';el.append(med,txt,tag);host.append(el)});
+}
+function renderHistory(){const host=$('history');host.innerHTML='';const keys=Object.keys(state.completed).sort().reverse().slice(0,5);if(!keys.length){host.innerHTML='<div class="sub">Zatím žádné dokončené tréninky. První bodový zisk čeká na tebe!</div>';return}
+ keys.forEach(k=>{const row=document.createElement('div');row.className='history-row';const date=document.createElement('span');date.textContent=formatDate(k);const xp=document.createElement('span');xp.textContent='+'+(state.completed[k].xp||50)+' XP';row.append(date,xp);host.append(row)});
+}
+function render(){renderStats();renderCalendar();renderWorkout();renderMilestones();renderHistory()}
+$('completeBtn').addEventListener('click',()=>{const key=state.selected;if(key!==todayKey()||state.completed[key])return;const total=Object.values(state.checks[key]||{}).filter(Boolean).length;if(total<8){toast('Nejdřív zaškrtni všech 8 částí tréninku.');return}state.completed[key]={xp:50,at:new Date().toISOString()};state.xp+=50;save();render();toast('Trénink splněn! +50 XP 🎉')});
+$('startBtn').addEventListener('click',()=>{$('workoutPanel').scrollIntoView({behavior:'smooth',block:'start'})});
+$('calendarBtn').addEventListener('click',()=>{$('calendarPanel').scrollIntoView({behavior:'smooth',block:'start'})});
+$('prevMonth').addEventListener('click',()=>{viewDate=new Date(viewDate.getFullYear(),viewDate.getMonth()-1,1);renderCalendar()});
+$('nextMonth').addEventListener('click',()=>{const next=new Date(viewDate.getFullYear(),viewDate.getMonth()+1,1);if(next<=new Date(new Date().getFullYear(),new Date().getMonth(),1)){viewDate=next;renderCalendar()}else toast('Budoucí měsíce zatím nejsou dostupné.')});
+$('resetBtn').addEventListener('click',()=>{if(confirm('Opravdu chceš smazat všechny body, tréninky a kalendář? Tuto akci nelze vrátit.')){state=defaults();save();render();toast('Postup byl resetován.')}});
+$('exportBtn').addEventListener('click',()=>{const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='muj-ranni-postup.json';a.click();URL.revokeObjectURL(url);toast('Export postupu stažen.')});
+render();
+})();
+</script>
+</body>
+</html>
